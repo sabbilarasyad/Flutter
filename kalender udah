@@ -13,9 +13,9 @@ class kalender extends StatefulWidget {
 }
 
 class _kalenderState extends State<kalender> {
-  TextEditingController controller = TextEditingController();
   DateTime kalender = DateTime.now();
-  List <String> hasil = [];
+  TextEditingController controller = TextEditingController();
+  List<String> data = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,9 @@ class _kalenderState extends State<kalender> {
             Container(
               margin: const EdgeInsets.all(30),
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                color: const Color.fromARGB(255, 108, 116, 120),
                 borderRadius: BorderRadius.circular(12),
               ),
-              
               child: CalendarDatePicker(
                 initialDate: kalender,
                 firstDate: DateTime(2020),
@@ -54,15 +53,14 @@ class _kalenderState extends State<kalender> {
               controller: controller,
               decoration: InputDecoration(
                 icon: Icon(Icons.event),
-                labelText: "BUAT CATATAN EVENT",
-                hintText: "....."
+                hintText: "TAMBAH EVENT"
               ),
             ),
             ElevatedButton(
             onPressed: () {
               if (controller.text.isNotEmpty) {
                 setState(() {
-                  hasil.add(
+                  data.add(
                     "${controller.text} | ""${kalender.day}-${kalender.month}-${kalender.year}"
                   );
                   controller.clear();
@@ -72,20 +70,18 @@ class _kalenderState extends State<kalender> {
             child: const Text("Tambah Event"),
           ),
 
-            
-          for (int i = 0; i < hasil.length; i++)
-          ListTile(
-            title: Text(hasil[i]),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                setState(() {
-                  hasil.removeAt(i);
-                });
-              },
-            ),
-          ),
-
+            for (int i = 0; i < data.length; i++)
+              ListTile(
+                title: Text(data[i]),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    setState(() {
+                      data.removeAt(i);
+                    });
+                  },
+                ),
+              ),
           ],
         ),
       ),
